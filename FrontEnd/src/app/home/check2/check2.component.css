@@ -1,0 +1,22 @@
+.container {
+  position: relative;
+  height: 100vh; /* Đặt chiều cao tương ứng */
+  overflow-y: auto; /* Tạo thanh cuộn khi phần tử "cha" vượt quá chiều cao của màn hình */
+}
+
+.cha {
+  position: relative;
+  display: flex;
+  height: 4200px; /* Đặt chiều cao tương ứng */
+}
+
+.infor {
+  position: sticky;
+  top: 0;
+  height: 100vh; /* Đặt chiều cao tương ứng */
+  overflow-y: auto; /* Tạo thanh cuộn khi nội dung phần tử "infor" vượt quá chiều cao của màn hình */
+}
+
+.sticky-infor {
+  /* Kiểu dáng tùy chỉnh cho phần tử "infor" khi cuộn */
+}

@@ -1,0 +1,153 @@
+
+<div class="check6" style="background-color: #ffffff;height: 700px;">
+  <div class="container" style="padding-top: 50px;" >
+    <div class="row">
+       <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="position: relative;">
+        <li class="nav-item" style="justify-content: start; position: absolute; left: 0;align-items: center; bottom: 10%;color: rgb(0, 0, 0);font-weight: bold;" >
+         Nguyễn Ngọc Hùng
+        </li>
+        <li [ngbNavItem]="1">
+          <button ngbNavLink >Giỏ Hàng</button>
+          <ng-template ngbNavContent>
+
+            <div class="scroll" style="z-index: 999;overflow-y: auto; height: 450px; " >
+              <table class="table table-bordered table-hover container" style="z-index: 999;padding-top: 5rem;  background-color: rgba(255, 255, 255, 0.886); text-align: center; ">
+                  <thead>
+                  <tr >
+                      <th>STT</th>
+                      <th>Mã</th>
+                      <th>Tên Sản Phẩm</th>
+                      <th>Ảnh Sản Phẩm</th>
+                      <th>Mô tả</th>
+                      <th>Số Lượng</th>
+                      <th>Giá</th>
+                      <th>Tổng Tiền</th>
+                      <th>Xóa</th>
+                  </tr>
+
+                  </thead>
+                  <thead></thead>
+                  <tbody *ngFor="let cart of CARTS; let i = index">
+                      <tr style="vertical-align: middle;">
+                        <td >{{i+1}}</td>
+                        <td>{{cart.id_product}}</td>
+                        <td>{{cart.name_product}}</td>
+                        <td style="background-image: url({{cart.image_product}}); background-size: cover;height: 100px;width: 150px;"></td>
+                        <td>{{cart.title_product}}</td>
+                        <td>
+                            <button (click)="cart.id_product !== undefined && Down(cart.id_product)">-</button>
+                            <p [innerText]="cart.quantity" style="width:50px;display: inline-block; text-align: center;">{{cart.quantity}}</p>
+                            <button (click)="cart.id_product !== undefined && Up(cart.id_product)">+</button>
+                        </td>
+                        <td>{{cart.price}}</td>
+                        <td>{{cart.total_price}}</td>
+                        <td> <button class="btn btn-sm btn-danger" (click)="cart.id_product !== undefined && DeleteOneProduct(cart.id_product)" ><i class="bi bi-trash-fill"></i></button></td>
+                      </tr>
+
+                  </tbody>
+              </table>
+          </div>
+          <div class="col" style="padding: unset;">
+            <ng-template #longContent let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title">Thực Hiện Thanh Toán</h4>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                </div>
+              </div>
+              <div class="modal-body">
+                 <p>  Email: </p>
+                 <p>  Số Điện Thoại:  </p>
+                 <p>  Địa Chỉ: </p>
+              </div>
+              <div class="scroll" style="z-index: 999;overflow-y: auto; padding: unset; " >
+                <table class="table table-bordered table-hover container" style="z-index: 999;padding-top: 5rem;  background-color: rgba(255, 255, 255, 0.886); text-align: center;  ">
+                    <thead >
+                    <tr>
+                      
+                        <th>Tên </th>
+                        <th>Ảnh</th>
+                        <th>Số Lượng</th>
+                        <th>Nội Dung</th>
+                        <th>Xóa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="vertical-align: middle;"*ngFor="let cart of CARTS">
+                          <td >{{cart.name_product}}</td>
+                            <td style="background-image: url({{cart.image_product}}); background-size: cover;height: 100px;width: 150px;"></td>
+                            <td> {{cart.quantity}}</td>
+                            <td> {{cart.title_product}}</td>
+                            <td> <button class="btn btn-sm btn-danger" ><i class="bi bi-trash-fill"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+              <div class="modal-footer">
+                <a [href]="redirectUrl" target="_blank">Tính Tiền</a>
+              </div>
+
+            </ng-template>
+          </div>
+          <div class="vidu">
+            <ul class="list-group list-group-horizontal">
+              <li class="list-group-item" (click)="DeleteAllProduct()">Xóa tất cả</li>
+              <li class="list-group-item">Tổng </li>
+              <li class="list-group-item"> <button class="btn btn-outline-primary mb-2 me-2" (click)="openScrollableContent(longContent);postDataAndRedirect()">
+                Thanh Toán
+              </button></li>
+
+            </ul>
+          </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <button ngbNavLink >Đơn Hàng</button>
+          <ng-template ngbNavContent>
+            <div class="scroll" style="z-index: 999;overflow-y: auto; height: 550px; " >
+              <table class="table table-bordered table-hover container" style="z-index: 999;padding-top: 5rem;  background-color: rgba(255, 255, 255, 0.886); text-align: center; ">
+                  <thead >
+                  <tr>
+
+                    <th>Mã</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Ảnh Sản Phẩm</th>
+                    <th>Mô tả</th>
+                    <th>Thời Gian</th>
+                    <th>Số Lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng Tiền</th>
+                    <th>Mã Hàng</th>
+
+                  </tr>
+                  </thead>
+                  <tbody *ngFor="let bill of bill">
+                    <tr style="vertical-align: middle;">
+                        <td>{{bill.id_product}}</td>
+                        <td>{{bill.name_product}}</td>
+                        <td>{{bill.image_product}}</td>
+                        <td>{{bill.title_product}}</td>
+                        <td>{{bill.total_price}}</td>
+                        <td>{{bill.quantity}}</td>
+                        <td>{{bill.price}}</td>
+                        <td>{{bill.total_amount}}</td>
+                        <td>{{bill.payment_id}}</td>
+
+                    </tr>
+                </tbody>
+              </table>
+          </div>
+
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav" class="mt-2">
+
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+
+

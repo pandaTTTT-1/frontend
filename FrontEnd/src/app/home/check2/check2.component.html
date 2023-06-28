@@ -1,0 +1,121 @@
+<div class="container">
+    <div class="cha" style="display: flex; height: 4200px; ">
+      <div class="anh" style="flex: 1;  margin: 25px 50px 75px 100px">
+        <div style="margin: 25px 50px 75px 0px">
+          <h2 >Custom Scrollbar Example</h2>
+  
+          <img src="{{product.image_product}}" alt="">
+          
+          
+        </div>
+      </div>
+      <div class="infor"  style="flex: 1; margin: 25px 50px 75px 100px ;">
+       <p>Mã {{product.id_product}}</p>
+       <h3>{{product.name_product}} </h3>
+       <p>{{product.price}} </p>
+       <hr/>
+      
+       <div style="padding-left: 0%;">
+        <p>hướng dẫn đo cỡ</p>
+       </div>
+       <div class="d-grid  mx-auto">
+        <button class="btn btn-outline-dark rounded-pill " type="button">Them vào giỏ hàng</button>
+       </div>
+        
+       <div style="left: 0;">
+        <h4>Chi tiết sản phẩm </h4>
+        <h4>kiểm tra tình trạng tại cửa hàng</h4>
+       </div>
+      </div>
+    </div>
+    <div>
+      <h5> nội dung</h5>
+      <div style="display: flex; ">
+        <div style="margin: 25px 50px 75px 100px ; flex: 3;">
+         <p>Chi tiết sản phẩm</p>
+         <hr>
+         <div style="display: flex;" >
+          <div>
+            <li>màu</li>
+            <li> chất </li>
+            <li>thơi gian hoàn thieenjn </li>
+            <li>Đế</li>
+          </div>
+          <div>
+            <li>logo</li>
+            <li>kí tự </li>
+            <li>họa tiết </li>
+            <li> xuất sứ</li>
+          </div>
+         </div>
+         <div>
+          <h6>Lưu ý: Vui lòng đọc kỹ hướng dẫn sử dụng  </h6>
+          <p>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              (click)="collapse.toggle()"
+              [attr.aria-expanded]="isCollapsed"
+              aria-controls="collapseExample"
+            >
+              Toggle
+            </button>
+          </p>
+          <div style="min-height: 100px">
+            <div #collapse="ngbCollapse" [(ngbCollapse)]="!isCollapsed" [horizontal]="true" style="max-width: 300px">
+              <div class="card" style="width: 300px">
+                <div class="card-body">You can collapse horizontally this card by clicking Toggle</div>
+              </div>
+            </div>
+          </div>
+          <ng-template #content let-offcanvas>
+            <div class="offcanvas-header">
+              <h4 class="offcanvas-title">Offcanvas title</h4>
+              <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+            </div>
+            <div class="offcanvas-body">
+              <p>One fine body&hellip;</p>
+              <div class="text-end">
+                <button type="button" class="btn btn-outline-dark" (click)="offcanvas.close('Close click')">Close</button>
+              </div>
+            </div>
+          </ng-template>
+          <h6 (click)="openEnd(content)">Product Care</h6>
+         </div>
+        </div>
+        <div style="margin: 25px 50px 75px 100px ; flex: 1;">
+          <div style="display: flex;">
+            <div>
+              <img src="" alt="">
+            </div>
+            <ng-template #longContent let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title">Đóng Gói</h4>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+              </div>
+              <div class="modal-body">
+                <p><img src="" alt=""></p>
+                <p>
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                  Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                </p>
+              </div>
+            </ng-template>
+             
+          <div (click)="openScrollableContent(longContent)">
+            <hr>
+            <h6>Đóng Gói</h6>
+            <p>Chiếc hộp tinh tế và thân thiện với môi trường được lấy cảm hứng từ di sản cuat Lizard</p>
+            <hr>  
+          </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2>Có Thể Bạn Cũng Thích </h2>
+    </div>
+  </div>
+  
+  
