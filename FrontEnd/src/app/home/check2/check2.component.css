@@ -1,20 +1,25 @@
 .container {
   position: relative;
   height: 100vh; /* Đặt chiều cao tương ứng */
-  overflow-y: auto; /* Tạo thanh cuộn khi phần tử "cha" vượt quá chiều cao của màn hình */
+  overflow-y: auto;
+  overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none; /* Tạo thanh cuộn khi phần tử "cha" vượt quá chiều cao của màn hình */
 }
-
+.container::-webkit-scrollbar { 
+  width: 0 !important;
+  display: none; 
+}
 .cha {
   position: relative;
   display: flex;
-  height: 4200px; /* Đặt chiều cao tương ứng */
+  height: fit-content; /* Đặt chiều cao tương ứng */
 }
 
 .infor {
   position: sticky;
-  top: 0;
-  height: 100vh; /* Đặt chiều cao tương ứng */
-  overflow-y: auto; /* Tạo thanh cuộn khi nội dung phần tử "infor" vượt quá chiều cao của màn hình */
+  top: 25%;
+  height:fit-content; /* Đặt chiều cao tương ứng */
+   /* Tạo thanh cuộn khi nội dung phần tử "infor" vượt quá chiều cao của màn hình */
 }
 
 .sticky-infor {

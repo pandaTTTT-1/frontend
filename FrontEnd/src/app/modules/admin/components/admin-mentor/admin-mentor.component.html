@@ -26,16 +26,16 @@
                       <th>Danh Mục</th>
                       <th>Danh Mục 2</th>
                       <th>Giá</th>
-                      <th>Link</th>
+                     
                       <th>Sửa</th>
                       <th>Xóa</th>
                   </tr>
                   </thead>
-                  <tbody *ngFor="let product of productsWithDetails">
-                      <tr style="vertical-align: middle;">
+                  <tbody *ngFor="let product of productsWithDetails "  >
+                      <tr  *ngFor="let product1 of products2 " style="vertical-align: middle;">
                           <td >{{product.id_product}}</td>
                           <td >{{product.name_product}}</td>
-                          <td style="background-image: url({{product.image_product}}); background-size: cover;height: 150px;width: 150px;"></td>
+                          <td  [style.background-image]="'url(' + firstImage(product1.images) + ')' " style=" background-size: cover;height: 150px;width: 150px;" ></td>
                           <td >{{product.title_product}}</td>
                           <td >{{product.quanity_product}}</td>
                           <td >{{product.description_product}}</td>

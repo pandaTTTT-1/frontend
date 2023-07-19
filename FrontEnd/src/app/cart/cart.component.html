@@ -4,7 +4,6 @@
     <div class="row">
        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="position: relative;">
         <li class="nav-item" style="justify-content: start; position: absolute; left: 0;align-items: center; bottom: 10%;color: rgb(0, 0, 0);font-weight: bold;" >
-         Nguyễn Ngọc Hùng
         </li>
         <li [ngbNavItem]="1">
           <button ngbNavLink >Giỏ Hàng</button>
@@ -27,12 +26,12 @@
 
                   </thead>
                   <thead></thead>
-                  <tbody *ngFor="let cart of CARTS; let i = index">
-                      <tr style="vertical-align: middle;">
+                  <tbody >
+                      <tr *ngFor="let cart of CARTS; let i = index " style="vertical-align: middle;">
                         <td >{{i+1}}</td>
                         <td>{{cart.id_product}}</td>
                         <td>{{cart.name_product}}</td>
-                        <td style="background-image: url({{cart.image_product}}); background-size: cover;height: 100px;width: 150px;"></td>
+                        <td [style.background-image]="'url(' + firstImage(cart.images) + ')' " style=" background-size: cover;height: 100px;width: 150px;"></td>
                         <td>{{cart.title_product}}</td>
                         <td>
                             <button (click)="cart.id_product !== undefined && Down(cart.id_product)">-</button>
@@ -43,13 +42,20 @@
                         <td>{{cart.total_price}}</td>
                         <td> <button class="btn btn-sm btn-danger" (click)="cart.id_product !== undefined && DeleteOneProduct(cart.id_product)" ><i class="bi bi-trash-fill"></i></button></td>
                       </tr>
+                     
+                      
+                      
 
                   </tbody>
+                  
               </table>
+              <div class="tonggia w-100">
+                <h4 style="text-align: end; padding-top: 10px;">Tổng tiền: {{sum}}đ</h4>
+              </div>
           </div>
           <div class="col" style="padding: unset;">
             <ng-template #longContent let-modal>
-              <div class="modal-header">
+              <!-- <div class="modal-header">
                 <h4 class="modal-title">Thực Hiện Thanh Toán</h4>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
@@ -69,31 +75,123 @@
                         <th>Ảnh</th>
                         <th>Số Lượng</th>
                         <th>Nội Dung</th>
-                        <th>Xóa</th>
+                       
                     </tr>
                     </thead>
-                    <tbody>
-                        <tr style="vertical-align: middle;"*ngFor="let cart of CARTS">
-                          <td >{{cart.name_product}}</td>
-                            <td style="background-image: url({{cart.image_product}}); background-size: cover;height: 100px;width: 150px;"></td>
+                    <tbody >
+                        <tr *ngFor="let cart of CARTS"style="vertical-align: middle;">
+                          <td  >{{cart.name_product}}</td>
+                            <td [style.background-image]="'url(' + firstImage(cart.images) + ')' " style=" background-size: cover;height: 100px;width: 150px;"></td>
                             <td> {{cart.quantity}}</td>
                             <td> {{cart.title_product}}</td>
-                            <td> <button class="btn btn-sm btn-danger" ><i class="bi bi-trash-fill"></i></button></td>
+                            
                         </tr>
+                        
                     </tbody>
                 </table>
+                <div class="tonggia w-100">
+                  <h4 style="text-align: end; padding-top: 10px;">Tổng tiền: {{sum}}đ</h4>
+                </div>
             </div>
               <div class="modal-footer">
-                <a [href]="redirectUrl" target="_blank">Tính Tiền</a>
-              </div>
-
+                <div class="paypal" style="border: 1px solid black;width: 175px; height: 30px;text-align: center; border-radius: 15px;">
+                  <a [href]="redirectUrl" target="_blank" style="color: black;">Paypal</a>
+                </div>
+                
+                <button class="payment" style="border: 1px solid black;width: 175px; height: 30px;text-align: center; border-radius: 15px;"(click)="PayCash()">Trả tiền khi nhận hàng</button>
+              </div> -->
+              <section>
+                <div class="container pt-5">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <h3 class="pb-3">THÔNG TIN GIAO HÀNG </h3>
+                                <div class="row pb-5">
+                                    <div class="col-1" style="padding-right: 0 ; width: 5% ;"><i class="bi bi-geo-alt text-danger"></i> </div>
+                                    <div class="col ps-0">
+                                        <p style="color: #8B8A8A;">Địa chỉ giao hàng</p>
+                                        <p>Hùng</p>
+                                        <p>SĐT : 0987654321</p>
+                                        <p>264 Đội Cấn , Ba ĐÌnh , Hà Nội</p>
+                                    </div>
+                                    <div class="col-2 text-end">
+                                        <a href="">chỉnh sửa</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="packit pb-5">
+                                <h3 class="pb-3"> GÓI HÀNG </h3>
+                                <div class="row pb-4" *ngFor="let cart of CARTS">
+              
+                                <div class="col-2">
+                                 <p  [style.background-image]="'url(' + firstImage(cart.images) + ')' " style=" background-size: cover;height: 100px;width: 150px;"></p>
+                                </div>
+                                <div class="col-4">
+                                    <h5>têm sản phẩm </h5>
+                                    <p style="font-size: 14px;color: #8B8A8A;">loại , màu </p>
+                                    <p>Số lượng: 1 </p>
+                                </div>
+                                <div class="col-2 ">
+                                    <h4 class="text-success">$12345</h4>
+                                </div>
+                            </div>
+                            </div>
+              
+                        </div>
+                        <div class="col-5" style="line-height: 1.5;">
+                            <div class="row pb-5">
+                                <h4 style="padding-bottom: 1rem;">PHƯƠNG THỨC THANH TOÁN</h4>
+                                <select class="form-select border border-dark-subtle rounded-0"  aria-label="Default select example">
+                                    <option selected>Chọn phương thức thanh toán </option>
+                                    <option value="1">Thanh toán khi nhận hàng</option>
+                                    <option value="2">internet banking</option>
+                                    <option value="3">Thẻ tín dụng/Thẻ ghi nợ</option>
+                                  </select>
+              
+                            </div>
+                            <div class="row pb-3">
+                                <div class="input-group mb-3 border border-dark-subtle pe-0 ps-0">
+                                    <input type="text" class="form-control" placeholder="Mã giảm giá" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-outline-secondary rounded-0" type="button" id="button-addon2">ÁP DỤNG</button>
+                                  </div>
+                            </div>
+                            <div class="row pb-5">
+                                <div class="col"><h5>Thông tin liên hệ và hóa đơn</h5></div>
+                                <div class="col-2 text-end">xxxxxxx</div>
+                            </div>
+                            <div class="row pb-4">
+                                <h5>Thông tin đơn hàng</h5>
+                                <div class="row pb-2">
+                                    <div class="col">Tạm tính(1sanr phẩm )</div>
+                                    <div class="col-2 text-end">$1234</div>
+                                </div>
+                                <div class="row pb-2">
+                                    <div class="col">Phí vận chuyển</div>
+                                    <div class="col-2 text-end">$1234</div>
+                                </div>
+                            </div>
+                            <div class="row pb-4">
+                                <div class="col">
+                                    <h3>TỔNG</h3>
+                                </div>
+                                <div class="col-2 text-end">
+                                    <h3 class="text-success">$1234</h3>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100 rounded-0" type="button" style="background-color: black;border: none;">ĐẶT HÀNG</button>
+                        </div>
+              
+                    </div>
+                </div>
+              </section>
+              
             </ng-template>
           </div>
           <div class="vidu">
             <ul class="list-group list-group-horizontal">
               <li class="list-group-item" (click)="DeleteAllProduct()">Xóa tất cả</li>
-              <li class="list-group-item">Tổng </li>
-              <li class="list-group-item"> <button class="btn btn-outline-primary mb-2 me-2" (click)="openScrollableContent(longContent);postDataAndRedirect()">
+             
+              <li class="list-group-item"> <button class="btn btn-outline-primary mb-2 me-2" (click)="openScrollableContent(longContent);PayCard()">
                 Thanh Toán
               </button></li>
 
@@ -125,7 +223,7 @@
                     <tr style="vertical-align: middle;">
                         <td>{{bill.id_product}}</td>
                         <td>{{bill.name_product}}</td>
-                        <td>{{bill.image_product}}</td>
+                        <td [style.background-image]="'url(' + firstImage(bill.images) + ')' " style="background-size: cover;height: 100px;width: 150px;"></td>
                         <td>{{bill.title_product}}</td>
                         <td>{{bill.total_price}}</td>
                         <td>{{bill.quantity}}</td>

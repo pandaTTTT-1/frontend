@@ -24,21 +24,20 @@ import { HomeModule } from './home/home.modules';
 import { Check1Component } from './home/check1/check1.component';
 import { Check2Component } from './home/check2/check2.component';
 import { Check3Component } from './home/check3/check3.component';
-import { Check4Component } from './home/check4/check4.component';
+
 import { Check5Component } from './home/check5/check5.component';
 import { Check6Component } from './home/check6/check6.component';
 import { Check7Component } from './home/check7/check7.component';
 import { Check8Component } from './home/check8/check8.component';
 import { ToastrModule } from 'ngx-toastr';
 import {  BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ChatComponent } from './shared/chat/chat.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
-import { RegisterComponent } from './register/register.component';
-import { LoginAdminComponent } from './home/login-admin/login-admin.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginadminComponent } from './shared/loginadmin/loginadmin.component';
 import { StickyInforDirective } from './compare/sticky-infor.directive';
+import { NextDirective } from './next.directive';
+import { PrevDirective } from './prev.directive';
 
 
 
@@ -63,18 +62,16 @@ import { StickyInforDirective } from './compare/sticky-infor.directive';
     Check1Component,
     Check2Component,
     Check3Component,
-    Check4Component,
     Check5Component,
     Check6Component,
     Check7Component,
     Check8Component,
-    ChatComponent,
     PageNotFoundComponent,
     
-    RegisterComponent,
-    LoginAdminComponent,
     LoginadminComponent,
-    StickyInforDirective
+    StickyInforDirective,
+    NextDirective,
+    PrevDirective
     
     
 

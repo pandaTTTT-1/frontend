@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../model/products';
-import { ProductService } from './detail.service';
+import { ProductServices } from './detail.service';
 import { HttpClient } from '@angular/common/http';
 import { Cart } from '../model/cart';
 
@@ -31,7 +31,7 @@ export class DetailComponent implements OnInit {
   
   constructor(
     private renderer: Renderer2,
-    private productService: ProductService,
+    private productService: ProductServices,
     private route: ActivatedRoute,
     private http :HttpClient,
     

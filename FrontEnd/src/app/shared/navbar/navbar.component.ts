@@ -18,7 +18,7 @@ import { CartService } from 'src/app/sevice/app.sevice';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  cartItemCount: number = 0;
+  productCount: number = 0;
   loginForm!: FormGroup;
   result: any;
   active = 1;
@@ -54,9 +54,12 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.formLogin = this.fb.group({
       username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      email: ['', [Validators.email,Validators.pattern("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$"), Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required],
       isAdmin: '0',
+    }, {
+      validator: this.ConfirmPasswordValidator("password", "confirmPassword")
     });
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
@@ -76,13 +79,50 @@ export class NavbarComponent implements OnInit {
       this.showAdminButton = false;
       this.showUserButton = false;
     }
-    
+    this.getCartUser()
+  }
+
+
+  ConfirmPasswordValidator(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      let control = formGroup.controls[controlName];
+      let matchingControl = formGroup.controls[matchingControlName]
+      if (
+        matchingControl.errors &&
+        !matchingControl.errors['confirmPasswordValidator']
+      ) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ confirmPasswordValidator: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
   // clearLocalStorage() {
   //   localStorage.clear();
   //   this.showAdminButton = false;
   //   this.showUserButton = false;
   // }
+  getCartUser() {
+    const id = localStorage.getItem('id_user');
+    if (id) {
+      const idNumber = parseInt(id, 10);
+      this.account.getCartUser(idNumber).subscribe(
+        (data: any) => {
+          this.productCount = data.result.length;
+          console.log(this.productCount)
+        },
+        (error) => {
+          console.error('Lỗi:', error);
+        }
+
+      )
+    }
+  }
+  
+  
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.auth.login(this.loginForm.value).subscribe(

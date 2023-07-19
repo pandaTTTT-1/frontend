@@ -58,6 +58,12 @@ export class MeoComponent implements OnInit {
       name_menu2: '',
       router_link_menu2: '',
       title_b2: '',
+      ViOrIma:'',
+      Name:'',
+      ten:'',
+      chek:'',
+
+
       
     })
   }
@@ -92,6 +98,11 @@ export class MeoComponent implements OnInit {
         router_link_menu2: quantities[i].router_link_menu2,
         title_b2: quantities[i].title_b,
         id_menu: this.menuu.id_menu,
+        ViOrIma:quantities[i].ViOrIma,
+        Name:quantities[i].Name,
+        ten:quantities[i].ten,
+        chek:quantities[i].chek,
+
       };
   
       this.httpClient.post(this.menu2Url, menn2).subscribe(data => {
@@ -99,7 +110,11 @@ export class MeoComponent implements OnInit {
         // Thực hiện các xử lý khác sau khi lưu thành công
       });
     }
+    window.alert('Thêm Menu thành công !');
+    window.location.reload();
+    
   });
+
   }
 
   ngOnInit(): void {}

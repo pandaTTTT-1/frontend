@@ -15,7 +15,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CartComponent implements OnInit{
   carts: any = [];
-  CARTS: Cart[] = [];
+  carts1: any = [];
+  CARTS: any[] = [];
   products: any[] = [];
   bill: any={};
   active = 1;
@@ -23,9 +24,18 @@ export class CartComponent implements OnInit{
   redirectUrl: string | undefined;
   closeResult!: string;
   cartItems: Product[] = [];
+  productImages: any [] = [];
+  sum: number = 0;
   constructor(private app : ProductService,private modalService: NgbModal,private productservice: ProductService ,private http : HttpClient ) { }
-
+  calculateTotalPrice(): void {
+    this.sum = 0;
+    for (let cart of this.CARTS) {
+      this.sum += cart.total_price!;
+    }
+    console.log(this.sum)
+  }
   ngOnInit(): void {
+    
     this.getBillUser();
     this.carts = this.app.getCarts();
 
@@ -33,14 +43,29 @@ export class CartComponent implements OnInit{
     this.productservice.getProducts().subscribe(
       (data: any) => {
         this.products = data.result;
-        console.log(this.products);
 
       },
       (error) => {
         console.error('Lỗi:', error);
       }
     );
-      
+    const id = localStorage.getItem('id_user');
+    if (id) {
+      const idNumber = parseInt(id, 10);
+      this.productservice.getCartUser(idNumber).subscribe(
+        (data: any) => {
+          this.carts1 = data.result;
+          
+        
+
+        },
+        (error) => {
+          console.error('Lỗi:', error);
+        }
+
+      )
+    }
+
 
   }
   // calculateTotalPrice() {
@@ -54,7 +79,12 @@ export class CartComponent implements OnInit{
   //     this.totalPrice += productPrice;
   //   }
   // }
-
+  firstImage(images: string[]): string {
+    if (images && images.length > 0) {
+      return images[0]; // Trả về ảnh đầu tiên trong danh sách
+    }
+    return ''; // Trả về chuỗi rỗng nếu danh sách ảnh trống
+  }
   getBillUser() {
     const id = localStorage.getItem('id_user');
     if (id) {
@@ -62,6 +92,18 @@ export class CartComponent implements OnInit{
       this.productservice.getBillUser(idNumber).subscribe(data => {
         this.bill = data.message;
         console.log(this.bill);
+        this.bill.forEach((productss: { image_product: string; images: any; }) => {
+          
+          // this.productID.push(product.id_product);
+        
+  
+  
+          //thay thế 'e2' trong product.id_menu === 'e2' bằng các id_menu tương ứng và kiểm tra khớp trong html
+          const images = JSON.parse(productss.image_product!);
+          this.productImages.push(images);
+          productss.images = images; // Gán giá trị vào product.images
+  
+        });
       });
     }
   }
@@ -72,7 +114,21 @@ export class CartComponent implements OnInit{
       this.productservice.getCartUser(idNumber).subscribe(
         (data: any) => {
           this.CARTS = data.result;
-          console.log(this.CARTS)
+          this.calculateTotalPrice()
+          this.CARTS.forEach((productss: { image_product: string; images: any; }) => {
+          
+            // this.productID.push(product.id_product);
+          
+    
+    
+            //thay thế 'e2' trong product.id_menu === 'e2' bằng các id_menu tương ứng và kiểm tra khớp trong html
+            const images = JSON.parse(productss.image_product!);
+            this.productImages.push(images);
+            productss.images = images; // Gán giá trị vào product.images
+    
+          });
+          
+          
         },
         (error) => {
           console.error('Lỗi:', error);
@@ -81,7 +137,7 @@ export class CartComponent implements OnInit{
       )
     }
   }
-  postDataAndRedirect() {
+  PayCard() {
     const id = localStorage.getItem('id_user');
     const data = {
       userId: id
@@ -97,6 +153,19 @@ export class CartComponent implements OnInit{
       }
     );
   }
+  PayCash() {
+    const id = localStorage.getItem('id_user');
+    const data = {
+      userId: id
+    };
+
+    this.http.post<any>('http://localhost:3006/payment_cash', data).subscribe(
+     
+    );
+    window.location.reload();
+    console.log('thành công')
+  }
+
 
   DeleteOneProduct(productId: number) {
     const id = localStorage.getItem('id_user');

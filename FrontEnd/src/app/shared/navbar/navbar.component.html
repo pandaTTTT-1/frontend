@@ -71,6 +71,13 @@
 
                           <input type="text" style="border: none;width: 100%;" formControlName="email" name="email">
                         </div>
+                        <div *ngIf="formLogin.get('email')?.invalid && (formLogin.get('email')?.dirty || formLogin.get('email')?.touched)">
+                          <div *ngIf="formLogin.get('email')?.errors">
+                    
+                            <small style="color:red !important;" class="form-text text-muted">Email should be ABCDEF@GHIJK.LMN</small>
+                    
+                          </div>
+                        </div>
 
                       </div>
                     </div>
@@ -80,6 +87,32 @@
                         <div class="input-group-prepend" style="width: 100%;">
 
                           <input type="password" style="border: none;width: 100%;" formControlName="password" name="password">
+                        </div>
+                        <div *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.dirty || formLogin.get('password')?.touched)">
+                          <div *ngIf="formLogin.get('password')?.errors?.['required']">
+                    
+                            <small style="color:red !important;" class="form-text text-muted">Please enter your password</small>
+                    
+                          </div>
+                          <div *ngIf="formLogin.controls?.['password']?.errors?.['required'] || formLogin.controls?.['password']?.errors?.['minlength']">
+                            
+                            <small style="color:red !important;" class="form-text text-muted">Password is required and should be at least 8 characters long.</small>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div><div>
+                      <label>Xác nhận mật khẩu*</label>
+                      <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}">
+                        <div class="input-group-prepend" style="width: 100%;">
+
+                          <input type="password" style="border: none;width: 100%;" formControlName="confirmPassword" name="confirmPassword">
+                        </div>
+                        <div>
+
+                          <div *ngIf="formLogin.get('confirmPassword')?.errors?.['confirmPasswordValidator']">
+                            <small style="color:red !important;" class="form-text text-muted">Not Match</small>
+                          </div>
                         </div>
 
                       </div>
@@ -91,6 +124,14 @@
 
                           <input style="border: none;width: 100%;" type="text" formControlName="username" name="name">
                         </div>
+                        
+                        <div *ngIf="formLogin.get('username')?.invalid && (formLogin.get('username')?.dirty || formLogin.get('username')?.touched)">
+                          <div *ngIf="formLogin.get('username')?.errors">
+                    
+                            <small style="color:red !important;" class="form-text text-muted">Please enter your username</small>
+                    
+                          </div>
+                        </div>
 
                       </div>
 
@@ -99,7 +140,7 @@
                     </div>
                     <div class="row pt-2 pb-0" style="text-align: center;">
                       <div class="col ps-0 pe-0 pt-2 pb-4" style="position: relative;">
-                        <button  style="border-color: #ffffff;list-style: none; justify-content: center; font-weight: bold" type="submit;" class="btn btn-outline-light w-100" >Đăng Ký</button>
+                        <button  style="border-color: #ffffff;list-style: none; justify-content: center; font-weight: bold" type="submit;" class="btn btn-outline-light w-100" [disabled]="!formLogin.valid" >Đăng Ký</button>
                       </div>
                     </div>
                     <div [ngbNavItem]="1" class="text-end text-bg-dark  pt-0 pb-0">
@@ -108,6 +149,7 @@
                   </form>
                 </ng-template>
               </li>
+
             </ul>
 
             <div [ngbNavOutlet]="nav" class="mt-2"></div>
@@ -122,7 +164,11 @@
       </div>
       <div class="ccontainer"style="justify-content: end;  ">
         <p >
-          <a style="color: aliceblue;" *ngIf="!showAdminButton"  href="cart"><i class="bi bi-bag-heart"></i></a>
+          <a style="color: aliceblue;" *ngIf="!showAdminButton"  href="cart"> 
+            <div style="position: relative;">
+            <i style="font-size: 20px;" class="fa fa-shopping-cart"></i>
+            <span class="counter" ><p>{{ productCount }}</p></span>
+          </div></a>
            <a style="color: aliceblue;" *ngIf="showAdminButton" (click)="logout()"><i class="bi bi-box-arrow-right"></i></a>
         </p>
     </div>

@@ -48,8 +48,8 @@
                   
                 </div>
                 <div class="row list align-items-center"  style="top:10px; justify-content: space-between; ">
-                    <div *ngFor="let image of images" class="col-6 " style="z-index: 100;padding: unset;">
-                        <img width="100%" src="{{image.image_product}}" alt="">
+                    <div *ngFor="let image of images ;let i=index" class="col-6 " style="z-index: 100;padding: unset;">
+                        <img *ngIf="i<4" width="100%" src="{{firstImage(image.images)}}" alt="">
                     </div>
                     <!-- <div class="col-6" style="z-index: 100; padding: unset;">
                         <img width="100%" src="../../assets/img/10.jpg" alt="">
